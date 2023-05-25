@@ -11,11 +11,14 @@ LABEL io.openshift.tags="apache, httpd"
 
 ENV DOCROOT=/var/www/html
 
+
 RUN yum install -y --disableplugin=subscription-manager httpd && \
 
 yum clean all --disableplugin=subscription-manager -y && \
 
 echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
+
+ONBUILD COPY src /var/www/html
 
 # Allows child images to inject their own content into DocumentRoot
 
